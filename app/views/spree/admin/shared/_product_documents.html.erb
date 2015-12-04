@@ -1,0 +1,16 @@
+<fieldset>
+  <legend><%= Spree.t(:product_documents) %></legend>
+  <% if object.product_documents.any? %>
+    <div>
+    <% object.product_documents.each do |pd| %>
+      <div>
+        <%= link_to pd.name, [:edit_admin, pd] %>
+      </div>
+    <% end %>
+    </div>
+  <% else %>
+    <div>
+      <%= Spree.t(:no_product_documents_for_product) %>
+    </div>
+  <% end %>
+</fieldset>

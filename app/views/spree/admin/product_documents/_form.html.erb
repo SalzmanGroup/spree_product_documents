@@ -1,0 +1,15 @@
+<%= f.field_container :name do %>
+  <%= f.label :name, Spree.t(:name) %><br />
+  <%= f.text_field :name %>
+  <%= error_message_on :product_document, :name %>
+<% end %>
+
+<%= f.field_container :file do %>
+  <%= f.label :file, Spree.t(:file) %><br />
+  <% if pd.file.present? %>
+    <%= content_tag :p, "Current File: #{pd.file_file_name}" %>
+  <% end %>
+  <%= f.file_field :file %>
+  <%= error_message_on :product_document, :file %>
+<% end %>
+

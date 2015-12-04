@@ -1,0 +1,32 @@
+<%= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Order Product Documents' } %>
+
+<% content_for :page_actions do %>
+  <li><%= button_link_to Spree.t(:back_to_orders_list), spree.admin_orders_path, :icon => 'arrow-left' %></li>
+<% end %>
+
+<% content_for :page_title do %>
+  <i class="fa fa-arrow-right"></i> <%= Spree.t(:product_documents) %>
+<% end %>
+
+<% documents = @order.product_documents %>
+<% if documents.any? %>
+  <table class="index">
+    <thead>
+      <tr>
+        <th><%= Spree.t(:name) %></th>
+        <th><%= Spree.t(:file_name) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% documents.each do |document| %>
+        <tr class="<%= cycle('odd', 'even')%>">
+          <td><%= link_to document.name, edit_admin_product_document_path(document) %></td>
+          <td><%= document.file_file_name%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <%= Spree.t(:no_product_documents_for_this_order) %>
+<% end %>
+

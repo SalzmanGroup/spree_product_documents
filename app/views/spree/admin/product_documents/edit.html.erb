@@ -1,0 +1,93 @@
+<%= content_for :page_actions do %>
+  <ul class="tollbar inline-menu">
+    <li>
+      <span id="new_ptype_link">
+        <%= link_to Spree.t(:back_to_product_documents),
+          admin_product_documents_path,
+          class:'button fa fa-arrow-left' %>
+      </span>
+    </li>
+  </ul>
+<% end %>
+
+<div data-hook="admin_store_edit_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @product_document } %>
+</div>
+
+<div data-hook="admin_edit_product_document_form">
+  <%= form_for [:admin, @product_document], html: {multipart: true} do |f| %>
+    <fieldset class="no-border-top">
+      <%= render "form", f: f, pd: @product_document %>
+      <div class="clear"></div>
+      <div data-hook="admin_product_document_new_form_buttons">
+        <%= render "spree/admin/shared/edit_resource_links" %>
+      </div>
+    </fieldset>
+  <% end %>
+</div>
+
+<fieldset class="assigned-taxons eight columns alpha">
+  <legend align="center"><%= Spree.t(:assigned_taxons) %></legend>
+  <div class='assign-a-taxon'>
+    <input type='text' id='product-document-taxon-field' class="fullwidth">
+  </div>
+  <div class='pd-taxons'>
+    <table class="pd-taxon-table">
+      <thead>
+        <tr>
+          <%= content_tag :th, Spree.t(:taxon_name) %>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody class='pd-taxon-rows'>
+        <%# Rendered using the javascript template below %>
+      </tbody>
+    </table>
+  </div>
+</fieldset>
+
+<fieldset class="assigned-products eight columns omega">
+  <legend align="center"><%= Spree.t(:assigned_products) %></legend>
+  <div class='assign-a-product'>
+    <input type='text' id='product-document-product-field' class="fullwidth">
+  </div>
+  <div class='pd-products'>
+    <table class="pd-product-table">
+      <thead>
+        <tr>
+          <%= content_tag :th, Spree.t(:product_name) %>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody class='pd-product-rows'>
+        <%# Rendered using the javascript template below %>
+      </tbody>
+    </table>
+  </div>
+</fieldset>
+
+<script type="text/template" id="product_document_product_template">
+  <tr class='pd-product' data-product_id="{{ id}}">
+    <td>
+      {{ name }}
+    </td>
+    <td class='actions'>
+      <%= link_to_with_icon "trash", Spree.t(:delete), "#", no_text: true, class: "delete-product" %>
+    </td>
+  </tr>
+</script>
+
+<script type="text/template" id="product_document_taxon_template">
+  <tr class='pd-taxon' data-permalink="{{ permalink }}">
+    <td>
+      {{ pretty_name }}
+    </td>
+    <td class='actions'>
+      <%= link_to_with_icon "trash", Spree.t(:delete), "#", no_text: true, class: "delete-taxon" %>
+    </td>
+  </tr>
+</script>
+
+<% content_for :head do %>
+  <%= render "js_vars" %>
+<% end %>

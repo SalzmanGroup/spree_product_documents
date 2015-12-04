@@ -1,0 +1,46 @@
+<%= render "spree/admin/shared/product_sub_menu" %>
+
+<% content_for :page_actions do %>
+  <ul class="tollbar inline-menu">
+    <li>
+      <span id="new_ptype_link">
+        <%= link_to Spree.t(:new_product_document),
+          new_admin_product_document_path,
+          class:'button fa fa-plus' %>
+      </span>
+    </li>
+  </ul>
+<% end %>
+
+<% content_for :page_title do %>
+  <%= Spree.t(:product_documents) %>
+<% end %>
+
+
+<% if @product_documents.any? %>
+  <table class='index' id='product-documents-table'>
+    <colgroup>
+      <col style="width:90%">
+      <col style="width:10%">
+    </colgroup>
+    <tbody>
+      <thead>
+        <tr>
+          <%= content_tag :th, Spree.t(:file_name) %>
+          <%= content_tag :th, nil, class: "actions" %>
+        </tr>
+      </thead>
+      <% @product_documents.each do |pd| %>
+        <tr>
+          <%= content_tag :td, pd.file_file_name %>
+          <td class='actions'>
+            <%= link_to_edit pd, no_text: true %>
+            <%= link_to_delete pd, no_text: true %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <%= content_tag :p, Spree.t(:no_product_documents) %>
+<% end %>

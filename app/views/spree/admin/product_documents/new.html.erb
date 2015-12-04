@@ -1,0 +1,27 @@
+<%= content_for :page_actions do %>
+  <ul class="tollbar inline-menu">
+    <li>
+      <span id="new_ptype_link">
+        <%= link_to Spree.t(:back_to_product_documents),
+          admin_product_documents_path,
+          class:'button fa fa-arrow-left' %>
+      </span>
+    </li>
+  </ul>
+<% end %>
+
+<div data-hook="admin_store_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @product_document } %>
+</div>
+
+<div data-hook="admin_new_product_document_form">
+  <%= form_for [:admin, @product_document], html: {multipart: true} do |f| %>
+    <fieldset class="no-border-top">
+      <%= render "form", f: f, pd: @product_document %>
+      <div class="clear"></div>
+      <div data-hook="admin_product_document_new_form_buttons">
+        <%= render "spree/admin/shared/new_resource_links" %>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

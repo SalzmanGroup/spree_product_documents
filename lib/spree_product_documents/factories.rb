@@ -1,0 +1,1 @@
+require 'spree_product_documents/factories/product_document'
